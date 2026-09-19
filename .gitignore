@@ -3,3 +3,7 @@ node_modules/
 dist/
 build/
 .idea/
+__pycache__/
+*.pyc
+.venv/
+.pytest_cache/
