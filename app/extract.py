@@ -48,7 +48,8 @@ def extract_fields(text: str) -> ExtractedFields:
     choice = resp.choices[0]
     if choice.finish_reason == "length":
         raise ValueError(f"Ответ обрезан лимитом: {choice.message.content[:200]}")
-    out = LLMOutput.model_validate(json.loads(choice.message.content))
+    raw = choice.message.content
+    out = LLMOutput.model_validate(json.loads(raw[raw.find("{"): raw.rfind("}") + 1]))
     num = find_number(text)
 
     return ExtractedFields(
